@@ -1,0 +1,141 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  width: 100%;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  min-height: 100px;
+}
+
+.list .infoItem p {
+  width: 1300px;
+  max-height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gridItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  gap: 1rem;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid #3C4554;
+  background: #1A2332;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.gridItem:hover {
+  transform: scale(1.005) translateY(-5px);
+  border-color: #5FA6FF;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.subContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+}
+
+.title {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+}
+
+.title h2 {
+  width: 85%;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.title p {
+  font-size: 1rem;
+  border-radius: 9999px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+}
+
+.options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.options .icon:hover {
+  cursor: pointer;
+  stroke: #fff;
+  transform: scale(1.15);
+}
+
+.info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 1rem;
+}
+
+.infoItem {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.infoItem p {
+  width: 450px;
+  max-height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.greenDot {
+  background: linear-gradient(to right, #1EBA55, #4FD98A);
+}
+
+.redDot {
+  background: linear-gradient(to right, #BA1E1E, #D94F4F);
+}
+
+.blueDot {
+  background: linear-gradient(to right, #3498DB, #4FA7F7);
+}
+
+.orangeDot {
+  background: linear-gradient(to right, #FF6600, #FF9900);
+}
+
+.yellowDot {
+  background: linear-gradient(to right, #F7DC6F, #F2C464);
+}
+
+.highPriority {
+  border: 1px solid #BA1E1E;
+}
+
+.mediumPriority {
+  border: 1px solid #FF6600;
+}
+
+.lowPriority {
+  border: 1px solid #1EBA55;
+}

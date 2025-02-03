@@ -1,0 +1,267 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  width: 95%;
+  margin: auto auto 1rem auto;
+  border-radius: 5px;
+}
+
+.mainTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  margin: 30px 0;
+  width: 100%;
+}
+
+.viewMode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #1A2332;
+  border: 1px solid #3C4554;
+  border-radius: 10px;
+}
+
+.viewMode:hover {
+  cursor: pointer;
+  background: #3C4554;
+}
+
+.viewMode p {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.mainTitle h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  background: linear-gradient(to right, #5FA6FF, #619CEC);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.mainTitle p {
+  color: lightgray;
+  font-size: 1.1rem;
+}
+
+.search {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  gap: 1rem;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid #3C4554;
+  background: #1A2332;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.searchInput {
+  width: 50%;
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  background: #293243;
+  border: 1px solid #3C4554;
+  height: 40px;
+}
+
+.searchInput input {
+  width: 100%;
+  border: none;
+  background: none;
+}
+
+.filters {
+  width: 50%;
+  display: flex;
+  gap: 1rem;
+}
+
+.filterType {
+  display: flex;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  background: #293243;
+  border: 1px solid #3C4554;
+  height: 40px;
+  gap: 1rem;
+}
+
+.filterType .datePicker {
+  border: 1px solid #3C4554;
+  border-radius: 5px;
+  background: none;
+  text-align: center;
+}
+
+.filterType select {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.filterType select option {
+  background: #f0f0f0;
+  color: #000;
+}
+
+.filterType select option:checked {
+  background: #d0d0d0;
+  color: #fff;
+}
+
+.menu {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.mainButton {
+  width: 200px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(to right, #2465F3, #5FA2F9);
+  color: white;
+  font-size: 1.2;
+  font-weight: bold;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+}
+
+.mainButton:hover {
+  background: linear-gradient(to right, #1A3B7F, #3A5E99);
+}
+
+.menuOptions {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  padding: 1rem;
+  flex-direction: row;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 9;
+}
+
+.menu:hover .menuOptions {
+  opacity: 1;
+}
+
+.menuOptionButton {
+  width: 120px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(to right, #2465F3, #5FA2F9);
+  color: white;
+  font-size: 1.2;
+  font-weight: bold;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+}
+
+.menuOptionButton:hover {
+  background: linear-gradient(to right, #1A3B7F, #3A5E99);
+}
+
+.confirmationPopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.confirmationContent {
+  background: #1A2332;
+  color: #fff;
+  padding: 3rem 4rem;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  min-width: 400px;
+  max-width: 600px;
+}
+
+.confirmationContent h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+
+.confirmationContent p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: #e0e0e0;
+}
+
+.confirmationButtons {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.confirmationButton {
+  padding: 0.8rem 2.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.confirmButton {
+  background: linear-gradient(to right, #2465F3, #5FA2F9);
+}
+
+.confirmButton:hover {
+  background: linear-gradient(to right, #13347a, #5FA2F9);
+  transform: scale(1.05);
+}
+
+.cancelButton {
+  background: linear-gradient(to right, #FF4B4B, #FF6B6B);
+}
+
+.cancelButton:hover {
+  background: linear-gradient(to right, #BF0000, #FF4B4B);
+  transform: scale(1.05);
+}

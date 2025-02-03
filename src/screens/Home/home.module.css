@@ -1,0 +1,172 @@
+.container {
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+
+.card {
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #3C4554;
+  background: #1A2332;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  color: white;
+  width: 450px;
+  height: 300px;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.user, .reportRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.bigNumber {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.reportsBreakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.reportRow {
+  display: grid;
+  grid-template-columns: 70px 1fr 40px;
+}
+
+.progressBar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+}
+
+.productivityChart {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 200px;
+  margin-top: 20px;
+}
+
+.chartBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chartBarContainer {
+  width: 20px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.chartBarFill {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.menu {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.mainButton {
+  width: 120px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(to right, #2465F3, #5FA2F9);
+  color: white;
+  font-size: 1.2;
+  font-weight: bold;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+}
+
+.mainButton:hover {
+  background: linear-gradient(to right, #1A3B7F, #3A5E99);
+}
+
+.menuOptions {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  padding: 1rem;
+  flex-direction: row;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 9;
+}
+
+.menu:hover .menuOptions {
+  opacity: 1;
+}
+
+.menuOptionButton {
+  width: 120px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(to right, #2465F3, #5FA2F9);
+  color: white;
+  font-size: 1.2;
+  font-weight: bold;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+}
+
+.menuOptionButton:hover {
+  background: linear-gradient(to right, #1A3B7F, #3A5E99);
+}
+
+.userList {
+  max-height: 215px;
+  overflow-y: auto;
+}
