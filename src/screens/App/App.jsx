@@ -120,6 +120,8 @@ const App = () => {
     setIsLogged(false);
   };
 
+  console.log("Prueba Git");
+
   return (
     <div className={styles.container}>
       {isLogged ? (
