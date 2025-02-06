@@ -16,6 +16,8 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import styles from "./home.module.css";
 
@@ -29,6 +31,8 @@ const Home = ({ connectedUsers }) => {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [employeeHistory, setEmployeeHistory] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
   const rolTranslations = {
     operator: "Monitoreo",
@@ -43,7 +47,7 @@ const Home = ({ connectedUsers }) => {
   useEffect(() => {
     fetchReports();
     fetchEmployees();
-  }, []);
+  }, [startDate, endDate]);
 
   const fetchReports = async () => {
     try {
@@ -54,11 +58,11 @@ const Home = ({ connectedUsers }) => {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      const today = new Date().toISOString().split("T")[0];
-      const todayReports = data.filter((report) =>
-        report.date.startsWith(today)
-      );
-      setReports(todayReports.reverse());
+      const filteredReports = data.filter((report) => {
+        const reportDate = new Date(report.date);
+        return reportDate >= startDate && reportDate <= endDate;
+      });
+      setReports(filteredReports.reverse());
       calculateProductivity(data);
       setLoading(false);
     } catch (error) {
@@ -198,7 +202,25 @@ const Home = ({ connectedUsers }) => {
       <div className={styles.card}>
         <div className={styles.cardHeader}>
           <ChartGantt />
-          <h2>Reportes del Día</h2>
+          <h2>Reportes</h2>
+        </div>
+        <div className={styles.datePickers}>
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            selectsStart
+            startDate={startDate}
+            endDate={endDate}
+            className={styles.datePicker}
+          />
+          <DatePicker
+            selected={endDate}
+            onChange={(date) => setEndDate(date)}
+            selectsEnd
+            startDate={startDate}
+            endDate={endDate}
+            className={styles.datePicker}
+          />
         </div>
         <div className={styles.bigNumber}>{reports.length}</div>
         <div className={styles.reportsBreakdown}>

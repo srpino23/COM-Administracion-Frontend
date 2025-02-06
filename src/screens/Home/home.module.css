@@ -13,7 +13,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   color: white;
   width: 450px;
-  height: 300px;
+  height: 380px;
 }
 
 .cardHeader {
@@ -167,12 +167,12 @@
 }
 
 .userList {
-  max-height: 215px;
+  max-height: 300px;
   overflow-y: auto;
 }
 
 .employeeList {
-  max-height: 150px;
+  max-height: 240px;
   overflow-y: auto;
 }
 
@@ -244,6 +244,20 @@
   width: 100%;
   padding: 10px;
   margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #3C4554;
+  background: #202938;
+  color: white;
+}
+
+.datePickers {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.datePicker {
+  padding: 10px;
   border-radius: 5px;
   border: 1px solid #3C4554;
   background: #202938;
