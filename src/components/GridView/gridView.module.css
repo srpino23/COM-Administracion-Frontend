@@ -12,17 +12,7 @@
   min-height: 100px;
 }
 
-.list .infoItem p {
-  width: 1300px;
-  max-height: 40px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .gridItem {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   width: 100%;
   height: 100%;
   padding: 2rem;
@@ -30,7 +20,7 @@
   align-items: center;
   border-radius: 10px;
   border: 1px solid #3C4554;
-  background: #1A2332;
+  background: #202938;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
@@ -85,7 +75,22 @@
 }
 
 .info {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.hInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.vInfo {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -95,17 +100,28 @@
 
 .infoItem {
   display: flex;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
   gap: 1rem;
-  width: 100%;
 }
 
 .infoItem p {
-  width: 450px;
   max-height: 40px;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  width: 100%;
+}
+
+.storyText {
+  width: 80%;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
 }
 
 .greenDot {

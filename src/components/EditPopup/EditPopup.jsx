@@ -65,6 +65,7 @@ const EditPopup = ({
       ...styles,
       backgroundColor: "#1A2332",
       color: "#FFFFFF",
+      border: "1px solid #3C4554",
     }),
     menuList: (styles) => ({
       ...styles,
@@ -166,6 +167,22 @@ const EditPopup = ({
     }
   };
 
+  const getStatusClass = (status) => {
+    switch (status) {
+      case "open":
+        return styles.greenDot;
+      case "sent":
+        return styles.blueDot;
+      case "pending":
+        return styles.yellowDot;
+      case "inProgress":
+        return styles.orangeDot;
+      case "close":
+      default:
+        return styles.redDot;
+    }
+  };
+
   return (
     <Draggable key={id} handle={`#popup-header-${id}`}>
       <div
@@ -175,7 +192,10 @@ const EditPopup = ({
         onClick={() => bringToFront(id)}
       >
         <div id={`popup-header-${id}`} className={styles.popupHeader}>
-          <h2>Editando Reporte {report.code}</h2>
+          <div className={styles.headerTitle}>
+            <h2>Editando Reporte {report.code}</h2>
+            <p className={getStatusClass(report.status)}></p>
+          </div>
           <div className={styles.headerButtons}>
             <Maximize2
               onClick={() => setFullWindow(!fullWindow)}

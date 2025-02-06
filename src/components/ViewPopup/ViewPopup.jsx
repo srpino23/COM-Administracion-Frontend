@@ -58,6 +58,22 @@ Relato del hecho: ${report.story}
     </div>
   );
 
+  const getStatusClass = (status) => {
+    switch (status) {
+      case "open":
+        return styles.greenDot;
+      case "sent":
+        return styles.blueDot;
+      case "pending":
+        return styles.yellowDot;
+      case "inProgress":
+        return styles.orangeDot;
+      case "close":
+      default:
+        return styles.redDot;
+    }
+  };
+
   return (
     <Draggable key={id} handle={`#popup-header-${id}`}>
       <div
@@ -68,7 +84,10 @@ Relato del hecho: ${report.story}
       >
         <div id={`popup-header-${id}`} className={styles.popupHeader}>
           <div className={styles.headerTitle}>
-            <h2>Viendo Reporte {report.code}</h2>
+            <div className={styles.headerTitle}>
+              <h2>Viendo Reporte {report.code}</h2>
+              <p className={getStatusClass(report.status)}></p>
+            </div>
             <Clipboard
               onClick={() => copyInfo(report)}
               className={styles.copyButton}

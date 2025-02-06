@@ -31,7 +31,6 @@ const Header = ({ logout }) => {
     <div className={styles.container}>
       <div className={styles.logo} onClick={() => navigate("/")}>
         <img src={logo} alt="Logo" />
-        <h1>Bitacora</h1>
       </div>
       <div className={styles.menu}>
         <div className={styles.userInfo}>

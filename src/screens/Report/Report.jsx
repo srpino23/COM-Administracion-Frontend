@@ -565,7 +565,9 @@ const Report = ({ socket }) => {
       </div>
       <div className={styles.search}>
         <div className={styles.searchInput}>
-          <Search className={styles.icon} color="#619CEC" />
+          <div className={styles.icon}>
+            <Search color="#619CEC" />
+          </div>
           <input
             type="text"
             placeholder="Buscar eventos..."
@@ -575,7 +577,9 @@ const Report = ({ socket }) => {
         </div>
         <div className={styles.filters}>
           <div className={styles.filterType}>
-            <Tag className={styles.icon} color="#619CEC" />
+            <div className={styles.icon}>
+              <Tag color="#619CEC" />
+            </div>
             <select
               name="type"
               id="type"
@@ -591,7 +595,9 @@ const Report = ({ socket }) => {
             </select>
           </div>
           <div className={styles.filterType}>
-            <Filter className={styles.icon} color="#619CEC" />
+            <div className={styles.icon}>
+              <Filter color="#619CEC" />
+            </div>
             <select
               name="status"
               id="status"
@@ -607,7 +613,9 @@ const Report = ({ socket }) => {
             </select>
           </div>
           <div className={styles.filterType}>
-            <Calendar className={styles.icon} color="#619CEC" />
+            <div className={styles.icon}>
+              <Calendar color="#619CEC" />
+            </div>
             <DatePicker
               className={styles.datePicker}
               dateFormat="dd/MM/yyyy"
