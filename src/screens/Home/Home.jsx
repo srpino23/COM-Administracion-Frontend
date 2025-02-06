@@ -25,6 +25,10 @@ const Home = ({ connectedUsers }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [productivity, setProductivity] = useState([]);
+  const [employees, setEmployees] = useState([]);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [employeeHistory, setEmployeeHistory] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const rolTranslations = {
     operator: "Monitoreo",
@@ -38,6 +42,7 @@ const Home = ({ connectedUsers }) => {
 
   useEffect(() => {
     fetchReports();
+    fetchEmployees();
   }, []);
 
   const fetchReports = async () => {
@@ -59,6 +64,25 @@ const Home = ({ connectedUsers }) => {
     } catch (error) {
       setError(error);
       setLoading(false);
+    }
+  };
+
+  const fetchEmployees = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_REACT_APP_API_URL}/api/employee/getEmployees`
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      const operators = data.filter(
+        (employee) => employee.position === "Operador"
+      );
+      setEmployees(operators);
+      console.log(operators);
+    } catch (error) {
+      setError(error);
     }
   };
 
@@ -105,6 +129,50 @@ const Home = ({ connectedUsers }) => {
     name: day.day,
     reportes: day.count,
   }));
+
+  const handleEmployeeClick = async (employee) => {
+    setSelectedEmployee(employee);
+    await fetchEmployeeHistory(employee);
+  };
+
+  const fetchEmployeeHistory = async (employee) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_REACT_APP_API_URL}/api/report/getReports`
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      const fullName = `${employee.surname} ${employee.name}`;
+      const history = data
+        .filter(
+          (report) =>
+            report.history && report.history.some((h) => h.user === fullName)
+        )
+        .map((report) => report.history.filter((h) => h.user === fullName))
+        .flat();
+      setEmployeeHistory(history);
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString.$date || dateString);
+    return isNaN(date) ? "Fecha inválida" : date.toLocaleString();
+  };
+
+  const closePopup = () => {
+    setSelectedEmployee(null);
+    setEmployeeHistory([]);
+  };
+
+  const filteredEmployees = employees.filter((employee) =>
+    `${employee.name} ${employee.surname}`
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className={styles.container}>
@@ -207,6 +275,87 @@ const Home = ({ connectedUsers }) => {
           </button>
         </div>
       </div>
+
+      <div className={styles.card}>
+        <div className={styles.cardHeader}>
+          <Users />
+          <h2>Operadores</h2>
+        </div>
+        <input
+          type="text"
+          placeholder="Buscar por nombre..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className={styles.searchInput}
+        />
+        <div className={styles.employeeList}>
+          {filteredEmployees.map((employee) => (
+            <div
+              key={employee.id}
+              className={styles.user}
+              onClick={() => handleEmployeeClick(employee)}
+            >
+              <div className={styles.avatar}>
+                <User />
+              </div>
+              <div>
+                {employee.name} {employee.surname}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {selectedEmployee && (
+        <div className={styles.popup}>
+          <div className={styles.popupHeader}>
+            <h2>
+              {selectedEmployee.name} {selectedEmployee.surname}
+            </h2>
+            <button className={styles.popupCloseButton} onClick={closePopup}>
+              &times;
+            </button>
+          </div>
+          <div className={styles.popupContent}>
+            <p>
+              <strong>ID:</strong> {selectedEmployee._id}
+            </p>
+            <p>
+              <strong>Turno:</strong> {selectedEmployee.shift}
+            </p>
+            <p>
+              <strong>Legajo:</strong> {selectedEmployee.docket}
+            </p>
+            <p>
+              <strong>Posición:</strong> {selectedEmployee.position}
+            </p>
+            <p>
+              <strong>Fecha:</strong>{" "}
+              {new Date(selectedEmployee.date).toLocaleDateString()}
+            </p>
+            <div className={styles.historySection}>
+              <h3>Historial</h3>
+              {employeeHistory.map((historyItem, index) => (
+                <div key={index} className={styles.historyItem}>
+                  <p>
+                    <strong>Usuario:</strong> {historyItem.user}
+                  </p>
+                  <p>
+                    <strong>Rol:</strong> {historyItem.role || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Actualización:</strong>{" "}
+                    {Object.values(historyItem.updates).join(", ")}
+                  </p>
+                  <p>
+                    <strong>Fecha:</strong> {formatDate(historyItem.timestamp)}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -170,3 +170,82 @@
   max-height: 215px;
   overflow-y: auto;
 }
+
+.employeeList {
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.employeeList .employeeItem {
+  padding: 10px;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.employeeList .user {
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.employeeList .user:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #202938;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  width: 80%;
+  max-width: 600px;
+  color: white;
+}
+
+.popupHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.popupContent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.popupCloseButton {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.historySection {
+  margin-top: 20px;
+}
+
+.historyItem {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #3C4554;
+  background: #202938;
+  color: white;
+}
