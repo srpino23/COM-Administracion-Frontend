@@ -33,6 +33,10 @@ const Home = ({ connectedUsers }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [createdReports, setCreatedReports] = useState([]);
+  const [editedReports, setEditedReports] = useState([]);
+  const [selectedReport, setSelectedReport] = useState(null);
+  const [selectedEditHistory, setSelectedEditHistory] = useState(null);
 
   const rolTranslations = {
     operator: "Monitoreo",
@@ -149,27 +153,43 @@ const Home = ({ connectedUsers }) => {
       }
       const data = await response.json();
       const fullName = `${employee.surname} ${employee.name}`;
-      const history = data
-        .filter(
-          (report) =>
-            report.history && report.history.some((h) => h.user === fullName)
-        )
-        .map((report) => report.history.filter((h) => h.user === fullName))
-        .flat();
-      setEmployeeHistory(history);
+      const ordenedFullName = `${employee.name.split(" ")[1]} ${
+        employee.surname
+      } ${employee.name.split(" ")[0]}`;
+      const created = data.filter(
+        (report) => report.operator === ordenedFullName
+      );
+      const edited = data.filter(
+        (report) =>
+          report.history && report.history.some((h) => h.user === fullName)
+      );
+      setCreatedReports(created);
+      setEditedReports(edited);
     } catch (error) {
       setError(error);
     }
   };
 
+  const viewEditHistory = (report) => {
+    setSelectedReport(report);
+    setSelectedEditHistory(null);
+  };
+
+  const viewEditDetails = (edit) => {
+    setSelectedEditHistory(edit);
+  };
+
   const formatDate = (dateString) => {
     const date = new Date(dateString.$date || dateString);
-    return isNaN(date) ? "Fecha inválida" : date.toLocaleString();
+    return isNaN(date.getTime()) ? "Fecha inválida" : date.toLocaleString();
   };
 
   const closePopup = () => {
     setSelectedEmployee(null);
-    setEmployeeHistory([]);
+    setCreatedReports([]);
+    setEditedReports([]);
+    setSelectedReport(null);
+    setSelectedEditHistory(null);
   };
 
   const filteredEmployees = employees.filter((employee) =>
@@ -329,7 +349,7 @@ const Home = ({ connectedUsers }) => {
       </div>
 
       {selectedEmployee && (
-        <div className={styles.popup}>
+        <div className={styles.popup} style={{ width: "80%", height: "80%" }}>
           <div className={styles.popupHeader}>
             <h2>
               {selectedEmployee.name} {selectedEmployee.surname}
@@ -339,41 +359,115 @@ const Home = ({ connectedUsers }) => {
             </button>
           </div>
           <div className={styles.popupContent}>
-            <p>
-              <strong>ID:</strong> {selectedEmployee._id}
-            </p>
-            <p>
-              <strong>Turno:</strong> {selectedEmployee.shift}
-            </p>
-            <p>
-              <strong>Legajo:</strong> {selectedEmployee.docket}
-            </p>
-            <p>
-              <strong>Posición:</strong> {selectedEmployee.position}
-            </p>
-            <p>
-              <strong>Fecha:</strong>{" "}
-              {new Date(selectedEmployee.date).toLocaleDateString()}
-            </p>
-            <div className={styles.historySection}>
-              <h3>Historial</h3>
-              {employeeHistory.map((historyItem, index) => (
-                <div key={index} className={styles.historyItem}>
-                  <p>
-                    <strong>Usuario:</strong> {historyItem.user}
-                  </p>
-                  <p>
-                    <strong>Rol:</strong> {historyItem.role || "N/A"}
-                  </p>
-                  <p>
-                    <strong>Actualización:</strong>{" "}
-                    {Object.values(historyItem.updates).join(", ")}
-                  </p>
-                  <p>
-                    <strong>Fecha:</strong> {formatDate(historyItem.timestamp)}
-                  </p>
+            <div className={styles.operatorInfo}>
+              <div className={styles.infoItem}>
+                <strong>ID:</strong> {selectedEmployee._id}
+              </div>
+              <div className={styles.infoItem}>
+                <strong>Turno:</strong> {selectedEmployee.shift}
+              </div>
+              <div className={styles.infoItem}>
+                <strong>Legajo:</strong> {selectedEmployee.docket}
+              </div>
+              <div className={styles.infoItem}>
+                <strong>Posición:</strong> {selectedEmployee.position}
+              </div>
+              <div className={styles.infoItem}>
+                <strong>Fecha:</strong>{" "}
+                {new Date(selectedEmployee.date).toLocaleDateString()}
+              </div>
+            </div>
+            <div className={styles.columns}>
+              <div className={styles.column}>
+                <div className={styles.historySection}>
+                  <h3>Reportes Creados</h3>
+                  {createdReports.map((report, index) => (
+                    <div key={index} className={styles.historyItem}>
+                      <p>
+                        <strong>Codigo:</strong> {report.code}
+                      </p>
+                      <p>
+                        <strong>Fecha:</strong>{" "}
+                        {new Date(report.date).toLocaleDateString()}
+                      </p>
+                    </div>
+                  ))}
                 </div>
-              ))}
+                <div className={styles.historySection}>
+                  <h3>Reportes Editados</h3>
+                  {editedReports.map((report, index) => (
+                    <div
+                      key={index}
+                      className={`${styles.historyItem} ${
+                        selectedReport && selectedReport.code === report.code
+                          ? styles.selectedReport
+                          : ""
+                      }`}
+                      onClick={() => viewEditHistory(report)}
+                    >
+                      <p>
+                        <strong>Codigo:</strong> {report.code}
+                      </p>
+                      <p>
+                        <strong>Fecha:</strong>{" "}
+                        {new Date(report.date).toLocaleDateString()}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className={styles.column}>
+                {selectedReport && (
+                  <div className={styles.historySection}>
+                    <h3>Historial de Ediciones</h3>
+                    <div className={styles.historyList}>
+                      {selectedReport.history.map((edit, index) => (
+                        <div
+                          key={index}
+                          className={`${styles.historyItem} ${
+                            selectedEditHistory === edit
+                              ? styles.selectedReport
+                              : ""
+                          }`}
+                          onClick={() => viewEditDetails(edit)}
+                        >
+                          <p>
+                            <strong>Usuario:</strong> {edit.user}
+                          </p>
+                          <p>
+                            <strong>Fecha:</strong> {formatDate(edit.timestamp)}
+                          </p>
+                          <p>
+                            <strong>Cambios:</strong>{" "}
+                            {Object.keys(edit.updates).join(", ")}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div className={styles.column}>
+                {selectedEditHistory && (
+                  <div className={styles.detailsSection}>
+                    <h3>Detalles de la Edición</h3>
+                    <div className={styles.infoItem}>
+                      <strong>Usuario:</strong> {selectedEditHistory.user}
+                    </div>
+                    <div className={styles.infoItem}>
+                      <strong>Fecha:</strong>{" "}
+                      {formatDate(selectedEditHistory.timestamp)}
+                    </div>
+                    {Object.entries(selectedEditHistory.updates).map(
+                      ([key, value], index) => (
+                        <div key={index} className={styles.infoItem}>
+                          <strong>{key}:</strong> {JSON.stringify(value)}
+                        </div>
+                      )
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

@@ -342,6 +342,10 @@ const Report = ({ socket }) => {
     setShowConfirmation(false);
   };
 
+  const handleSecretClick = () => {
+    navigate("/easter-egg");
+  };
+
   useEffect(() => {
     fetchReports();
     fetchParticipants();
@@ -555,7 +559,13 @@ const Report = ({ socket }) => {
       <div className={styles.mainTitle}>
         <div>
           <h1>Eventos</h1>
-          <p>Sistema de gestion de eventos</p>
+          <p>
+            Sistema de gesti
+            <span className={styles.secretButton} onClick={handleSecretClick}>
+              o
+            </span>
+            n de eventos
+          </p>
         </div>
         <div className={styles.viewMode}>
           <p onClick={() => setViewMode(!viewMode)}>

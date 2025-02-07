@@ -265,3 +265,13 @@
   background: linear-gradient(to right, #BF0000, #FF4B4B);
   transform: scale(1.05);
 }
+
+.secretButton {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+.secretButton:hover {
+  text-decoration: underline;
+}
